@@ -1,121 +1,67 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [products, setProducts] = useState([])
+
+  useEffect(() => {
+    axios.get('https://api.overpro.fit/api/v1/products/')
+      .then(response => {
+        setProducts(response.data)
+      })
+      .catch(error => {
+        console.error("Ошибка при получении товаров:", error)
+      })
+  }, [])
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+      <div style={{ backgroundColor: '#f4f7f6', minHeight: '100vh', padding: '40px' }}>
+        <header style={{ textAlign: 'center', marginBottom: '40px' }}>
+          <h1 style={{ color: '#2c3e50', fontSize: '2.5rem' }}>OverPro Store</h1>
+          <p style={{ color: '#7f8c8d' }}>Лучшие товары по лучшим ценам</p>
+        </header>
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+          gap: '30px',
+          maxWidth: '1200px',
+          margin: '0 auto'
+        }}>
+          {products.map(product => (
+            <div key={product.id} style={{
+              backgroundColor: 'white',
+              borderRadius: '15px',
+              overflow: 'hidden',
+              boxShadow: '0 10px 20px rgba(0,0,0,0.05)',
+              transition: 'transform 0.3s ease'
+            }}>
+              <img
+                src={product.image || 'https://via.placeholder.com/300'}
+                alt={product.title}
+                style={{ width: '100%', height: '220px', objectFit: 'cover' }}
+              />
+              <div style={{ padding: '20px' }}>
+                <h3 style={{ margin: '0 0 10px 0', fontSize: '1.2rem', color: '#34495e' }}>{product.title}</h3>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ fontSize: '1.4rem', fontWeight: 'bold', color: '#e74c3c' }}>{product.price} ₴</span>
+                  <button style={{
+                    padding: '10px 15px',
+                    backgroundColor: '#3498db',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    fontWeight: '600'
+                  }}>
+                    В корзину
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
-}
+      </div>
+    )
 
 export default App
