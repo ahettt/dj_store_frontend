@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
+import { CartContext } from '../context/CartContext';
 
 function ProductDetail() {
-  const { id } = useParams(); // Дістаємо ID з URL
+  const { id } = useParams();
+  const { addToCart } = useContext(CartContext);
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -46,11 +48,17 @@ function ProductDetail() {
             <p>{product.description || "Описание отсутствует."}</p>
           </div>
 
-          <button style={{
-            marginTop: '30px', padding: '15px 30px', backgroundColor: '#007bff',
-            color: 'white', border: 'none', borderRadius: '5px', fontSize: '16px', cursor: 'pointer'
-          }}>
-            Добавить в корзину
+          <button
+              onClick={() => {
+                addToCart(product);
+                alert('Товар додано в кошик!');
+              }}
+              style={{
+                marginTop: '30px', padding: '15px 30px', backgroundColor: '#007bff',
+                color: 'white', border: 'none', borderRadius: '5px', fontSize: '16px', cursor: 'pointer'
+              }}
+            >
+              Добавить в корзину
           </button>
         </div>
       </div>
