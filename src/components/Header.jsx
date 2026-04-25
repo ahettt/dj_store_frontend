@@ -13,7 +13,9 @@ function Header() {
         </Link>
         <input type="text" placeholder="Поиск товаров..." style={{ padding: '8px', width: '300px' }} />
         <div style={{ display: 'flex', gap: '15px' }}>
-          <span>Корзина ({totalItems})</span>
+          <Link to="/cart" style={{ textDecoration: 'none', color: 'black' }}>
+            <span>Корзина ({totalItems})</span>
+          </Link>
           <span>Профиль</span>
         </div>
       </div>

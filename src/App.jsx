@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import ProductDetail from './pages/ProductDetail';
 import CategoryPage from './pages/CategoryPage';
 import { CartProvider } from './context/CartContext';
+import Cart from './pages/Cart';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path="category/:slug" element={<CategoryPage />} />
             <Route path="product/:id" element={<ProductDetail />} />
+            <Route path="cart" element={<Cart />} />
           </Route>
         </Routes>
       </BrowserRouter>
