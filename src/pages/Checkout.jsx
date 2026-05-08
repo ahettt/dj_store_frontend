@@ -2,11 +2,16 @@ import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
 import axios from 'axios';
+import { AuthContext } from '../context/AuthContext';
 
 function Checkout() {
   const { cartItems, clearCart } = useContext(CartContext);
+  const { token } = useContext(AuthContext);
   const navigate = useNavigate();
   const [success, setSuccess] = useState(false);
+  const config = {
+      headers: token ? { Authorization: `Bearer ${token}` } : {}
+    };
 
   // Состояние для полей формы
   const [formData, setFormData] = useState({
@@ -43,11 +48,11 @@ function Checkout() {
     };
 
     // Отправляем POST-запрос на эндпоинт
-    axios.post('https://api.overpro.fit/orders/api/v1/create/', orderData)
+    axios.post('https://api.overpro.fit/orders/api/v1/create/', orderData, config)
       .then((res) => {
         console.log("Успех:", res.data);
-        clearCart(); // Очищаем корзину
-        setSuccess(true); // Показываем сообщение об успехе
+        clearCart();
+        setSuccess(true);
       })
       .catch((err) => {
         console.error("Ошибка при оформлении заказа:", err);

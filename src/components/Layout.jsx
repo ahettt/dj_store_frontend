@@ -15,7 +15,7 @@ function Layout() {
       </div>
 
       <footer style={{ textAlign: 'center', padding: '20px', borderTop: '1px solid #ddd', marginTop: '20px' }}>
-        <p>© 2026 OverPro Store. Первый курс — полёт нормальный!</p>
+        <p>© 2026 OverPro Store.</p>
       </footer>
     </div>
   );

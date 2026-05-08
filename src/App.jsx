@@ -6,22 +6,25 @@ import CategoryPage from './pages/CategoryPage';
 import { CartProvider } from './context/CartContext';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
+import { AuthProvider } from './context/AuthContext';
 
 function App() {
   return (
-    <CartProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="category/:slug" element={<CategoryPage />} />
-            <Route path="product/:id" element={<ProductDetail />} />
-            <Route path="cart" element={<Cart />} />
-            <Route path="checkout" element={<Checkout />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </CartProvider>
+      <AuthProvider>
+        <CartProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route index element={<Home />} />
+                <Route path="category/:slug" element={<CategoryPage />} />
+                <Route path="product/:id" element={<ProductDetail />} />
+                <Route path="cart" element={<Cart />} />
+                <Route path="checkout" element={<Checkout />} />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </CartProvider>
+    </AuthProvider>
   );
 }
 
