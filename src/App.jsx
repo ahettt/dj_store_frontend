@@ -7,6 +7,7 @@ import { CartProvider } from './context/CartContext';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import { AuthProvider } from './context/AuthContext';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
                 <Route path="category/:slug" element={<CategoryPage />} />
                 <Route path="product/:id" element={<ProductDetail />} />
                 <Route path="cart" element={<Cart />} />
+                <Route path="profile" element={<Profile />} />
                 <Route path="checkout" element={<Checkout />} />
               </Route>
             </Routes>

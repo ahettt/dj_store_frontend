@@ -19,23 +19,33 @@ function Header() {
 
       <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
         <Link to="/cart" style={{ textDecoration: 'none', color: 'black', fontSize: '18px' }}>
-          🛒 Корзина ({totalItems})
+          Корзина ({totalItems})
         </Link>
 
         {isLoggedIn ? (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
-              alt="User Avatar"
-              style={{ width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover', border: '1px solid #ccc' }}
-            />
-            <button onClick={logout} style={{ background: 'none', border: 'none', color: 'red', cursor: 'pointer', textDecoration: 'underline' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+
+            {/* Ссылка вокруг аватарки */}
+            <Link to="/profile" title="Перейти в личный кабинет">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                alt="User Avatar"
+                style={{ width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover', border: '1px solid #ccc', cursor: 'pointer', display: 'block' }}
+              />
+            </Link>
+
+            {/* Кнопка выхода */}
+            <button
+              onClick={logout}
+              style={{ background: 'none', border: 'none', color: 'red', cursor: 'pointer', textDecoration: 'underline' }}
+            >
               Выйти
             </button>
+
           </div>
         ) : (
           <button
-            onClick={() => setIsModalOpen(true)} // Открываем окно
+            onClick={() => setIsModalOpen(true)}
             style={{ padding: '8px 15px', cursor: 'pointer', backgroundColor: '#f8f9fa', border: '1px solid #ddd', borderRadius: '5px' }}
           >
             Войти / Регистрация
