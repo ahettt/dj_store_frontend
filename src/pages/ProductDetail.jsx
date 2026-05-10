@@ -2,6 +2,7 @@ import { useEffect, useState, useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import { CartContext } from '../context/CartContext';
+import ProductReviews from '../components/ProductReviews';
 
 function ProductDetail() {
   const { id } = useParams();
@@ -62,6 +63,7 @@ function ProductDetail() {
           </button>
         </div>
       </div>
+      <ProductReviews productId={product.id} />
     </div>
   );
 }
